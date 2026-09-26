@@ -32,7 +32,7 @@ iOS / watchOS only. No Android or WearOS support.
 - **Plugin package** (repo root): Dart state coordinator, bridge with
   caching/dedup of reliable commands, and a MethodChannel/EventChannel
   client (`lib/`), plus the iOS native implementation
-  (`ios/flutter_watchkit/`, SwiftPM, iOS 17+).
+  (`ios/flutter_watchkit/`, SwiftPM, iOS 13+).
 - **Example app** (`example/`): runnable Flutter app showing status,
   context push, and command handling; `example/watch_app/` holds the
   companion watchOS reference sources.
