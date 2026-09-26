@@ -15,7 +15,7 @@ final class FlutterWatchKitStreamHandler: NSObject, FlutterStreamHandler {
   }
 }
 
-final class FlutterWatchKitPlugin: NSObject, FlutterPlugin {
+public final class FlutterWatchKitPlugin: NSObject, FlutterPlugin {
   private static let channelName = "flutter_watchkit/methods"
   private static let eventChannelName = "flutter_watchkit/events"
 
@@ -25,7 +25,7 @@ final class FlutterWatchKitPlugin: NSObject, FlutterPlugin {
     self.service = service
   }
 
-  static func register(with registrar: FlutterPluginRegistrar) {
+  public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(
       name: channelName,
       binaryMessenger: registrar.messenger()
@@ -39,7 +39,7 @@ final class FlutterWatchKitPlugin: NSObject, FlutterPlugin {
     events.setStreamHandler(FlutterWatchKitStreamHandler())
   }
 
-  func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "activate":
       service.activateSession()

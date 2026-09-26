@@ -1,9 +1,10 @@
 # Protocol contract
 
-Contract between the Dart package (`packages/flutter_watchkit`), the iOS
-plugin sources (`ios/`), and any watchOS app talking to the phone over
-`WCSession`. The framework owns envelope and transport only; payload keys
-inside `payload`/`context` maps are app-defined.
+Contract between the Dart package (repo root, `lib/`), the iOS plugin
+sources (`ios/flutter_watchkit/Sources/flutter_watchkit/`), and any watchOS
+app talking to the phone over `WCSession`. The framework owns envelope and
+transport only; payload keys inside `payload`/`context` maps are
+app-defined.
 
 ## Channels
 
