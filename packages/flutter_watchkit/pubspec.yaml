@@ -1,0 +1,17 @@
+name: flutter_watchkit
+description: Generic Flutter <-> Apple Watch connectivity framework built on WatchConnectivity (WCSession).
+publish_to: "none"
+version: 1.0.0
+
+environment:
+    sdk: ^3.10.8
+
+dependencies:
+    flutter:
+        sdk: flutter
+    meta: ^1.3.0
+
+dev_dependencies:
+    flutter_test:
+        sdk: flutter
+    flutter_lints: ^6.0.0
