@@ -2,8 +2,8 @@ import Flutter
 import Foundation
 import WatchConnectivity
 
-final class WatchKitSessionService: NSObject, WCSessionDelegate {
-  static let shared = WatchKitSessionService()
+public final class WatchKitSessionService: NSObject, WCSessionDelegate {
+  public static let shared = WatchKitSessionService()
 
   private let cache = WatchKitSessionCache.shared
   private let dispatcher = WatchKitEventDispatcher.shared
@@ -12,13 +12,13 @@ final class WatchKitSessionService: NSObject, WCSessionDelegate {
     WCSession.isSupported() ? WCSession.default : nil
   }
 
-  func activateSession() {
+  public func activateSession() {
     guard let session else { return }
     session.delegate = self
     session.activate()
   }
 
-  func snapshot() -> [String: Any] {
+  public func snapshot() -> [String: Any] {
     guard let session else { return unsupportedSnapshot() }
     return [
       "supported": true,
@@ -32,7 +32,7 @@ final class WatchKitSessionService: NSObject, WCSessionDelegate {
     ]
   }
 
-  func updateContext(_ payload: [String: Any]) throws {
+  public func updateContext(_ payload: [String: Any]) throws {
     guard let session else { throw watchError("UNSUPPORTED", "WatchConnectivity unavailable.") }
     guard session.activationState == .activated else {
       throw watchError("NOT_ACTIVATED", "WatchConnectivity session is still activating.")
@@ -41,7 +41,7 @@ final class WatchKitSessionService: NSObject, WCSessionDelegate {
     cache.storeContext(payload)
   }
 
-  func transferUserInfo(_ payload: [String: Any]) throws {
+  public func transferUserInfo(_ payload: [String: Any]) throws {
     guard let session else { throw watchError("UNSUPPORTED", "WatchConnectivity unavailable.") }
     guard session.activationState == .activated else {
       throw watchError("NOT_ACTIVATED", "WatchConnectivity session is still activating.")
@@ -50,11 +50,11 @@ final class WatchKitSessionService: NSObject, WCSessionDelegate {
     cache.storeUserInfo(payload)
   }
 
-  func clearLatestUserInfo() {
+  public func clearLatestUserInfo() {
     cache.clearUserInfo()
   }
 
-  func sendMessage(_ payload: [String: Any], result: @escaping FlutterResult) {
+  public func sendMessage(_ payload: [String: Any], result: @escaping FlutterResult) {
     guard let session else {
       result(flutterError("UNSUPPORTED", "WatchConnectivity unavailable."))
       return
@@ -74,32 +74,32 @@ final class WatchKitSessionService: NSObject, WCSessionDelegate {
     )
   }
 
-  func session(
+  public func session(
     _ session: WCSession,
     activationDidCompleteWith activationState: WCSessionActivationState,
     error: Error?
   ) {}
 
-  func session(
+  public func session(
     _ session: WCSession,
     didReceiveApplicationContext applicationContext: [String: Any]
   ) {
     cache.storeContext(applicationContext)
   }
 
-  func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+  public func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
     cache.storeMessage(message)
     dispatcher.emitMessage(message)
   }
 
-  func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
+  public func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
     cache.storeUserInfo(userInfo)
     dispatcher.emitUserInfo(userInfo)
   }
 
-  func sessionDidBecomeInactive(_ session: WCSession) {}
+  public func sessionDidBecomeInactive(_ session: WCSession) {}
 
-  func sessionDidDeactivate(_ session: WCSession) {
+  public func sessionDidDeactivate(_ session: WCSession) {
     session.activate()
   }
 
